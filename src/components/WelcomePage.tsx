@@ -14,7 +14,7 @@ export function WelcomePage() {
     // Update countdown
     const countdownInterval = setInterval(() => {
       const now = new Date().getTime();
-      const targetDate = new Date('2025-02-10T00:00:00').getTime();
+      const targetDate = new Date('2025-03-03T00:00:00').getTime();
       const distance = targetDate - now;
 
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
