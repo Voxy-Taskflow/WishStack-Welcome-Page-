@@ -40,9 +40,9 @@ function App() {
     const stars = Array.from({ length: 50 }).map(() => {
       const star = document.createElement('div');
       star.className = 'star';
-      star.style.left = ${Math.random() * 100}%;
-      star.style.top = ${Math.random() * 100}%;
-      star.style.width = ${Math.random() * 3}px;
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.width = `${Math.random() * 3}px`;
       star.style.height = star.style.width;
       return star;
     });
@@ -54,7 +54,7 @@ function App() {
         const scrolled = window.scrollY;
         stars.forEach((star, index) => {
           const speed = (index % 3 + 1) * 0.5;
-          star.style.transform = translateY(${scrolled * speed}px);
+          star.style.transform = `translateY(${scrolled * speed}px)`;
         });
       });
     };
