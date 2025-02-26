@@ -8,6 +8,35 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const starsRef = useRef<HTMLDivElement>(null);
   const featuresRef = useRef<HTMLElement>(null);
+  const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  const targetDate = new Date('2025-03-10T00:00:00'); // Target date: March 10, 2025
+
+  const calculateCountdown = () => {
+    const now = new Date();
+    const difference = targetDate.getTime() - now.getTime();
+
+    if (difference <= 0) {
+      setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      return;
+    }
+
+    const days = Math.floor(difference / (1000 * 3600 * 24));
+    const hours = Math.floor((difference % (1000 * 3600 * 24)) / (1000 * 3600));
+    const minutes = Math.floor((difference % (1000 * 3600)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+    setCountdown({ days, hours, minutes, seconds });
+  };
+
+  useEffect(() => {
+    const interval = setInterval(calculateCountdown, 1000);
+
+    // Calculate the countdown immediately on load
+    calculateCountdown();
+
+    return () => clearInterval(interval);
+  }, []);
 
   const scrollToFeatures = () => {
     const startPosition = window.pageYOffset;
@@ -76,6 +105,15 @@ function App() {
           <h1 className="text-6xl md:text-8xl font-bold text-white mb-8 gradient-text">
             Join The Future
           </h1>
+
+          {/* Countdown */}
+          <div className="text-2xl text-white mb-8">
+            <p>Countdown to March 10, 2025:</p>
+            <p className="text-4xl font-bold">
+              {countdown.days} Days {countdown.hours} Hours {countdown.minutes} Minutes {countdown.seconds} Seconds
+            </p>
+          </div>
+
           <button 
             onClick={() => setIsAuthModalOpen(true)}
             className="bg-purple-600 hover:bg-purple-700 text-white text-xl px-12 py-4 rounded-full transform transition hover:scale-105 flex items-center gap-2 mb-16"
